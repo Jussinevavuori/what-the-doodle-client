@@ -1,26 +1,26 @@
-import "./TitleChooser.scss";
+import "./TopicChooser.scss";
 import React from "react";
 import cx from "classnames";
-import { useTitleChooserController } from "./useTitleChooserController";
+import { useTopicChooserController } from "./useTopicChooserController";
 import { IconButton } from "@material-ui/core";
 import { Done as DoneIcon } from "@material-ui/icons";
 
-export type TitleChooserProps = {
+export type TopicChooserProps = {
 
 };
 
-export function TitleChooser(props: TitleChooserProps) {
+export function TopicChooser(props: TopicChooserProps) {
 
-	const controller = useTitleChooserController(props)
+	const controller = useTopicChooserController(props)
 
-	return <div className={cx("TitleChooser")}>
+	return <div className={cx("TopicChooser")}>
 		<main>
 			{
-				controller.chosenTitle
+				controller.chosenTopic
 					? <>
 						<div className="loading">
 							<p>You are drawing:</p>
-							<h1>{controller.chosenTitle}</h1>
+							<h1>{controller.chosenTopic}</h1>
 							<span>Waiting for other players to choose...</span>
 						</div>
 					</>

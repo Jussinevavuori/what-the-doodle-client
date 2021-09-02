@@ -118,9 +118,9 @@ export class RoomSocket extends WebSocketChannel {
   }
 
   /**
-   * Make initial choice for title
+   * Make initial choice for topic
    */
-  initialChoice(args: { uid: string; title: string }) {
+  initialChoice(args: { uid: string; topic: string }) {
     this.emit("@game/initialChoice", args);
   }
 
@@ -160,7 +160,7 @@ export class RoomSocket extends WebSocketChannel {
         this._hasConnectedOnce ? "reconnected" : "connected"
       );
       this._hasConnectedOnce = true;
-      this.emit("@room/join", {
+      this.emit("@game/join", {
         roomId: this.roomId,
         userId: store.getState().game.user.id,
         userName: store.getState().game.user.name,

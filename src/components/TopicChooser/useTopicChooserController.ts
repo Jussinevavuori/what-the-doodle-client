@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { useRoomSocketContext } from "../../contexts/RoomSocketContext";
 import { useStoreState } from "../../store";
-import { TitleChooserProps } from "./TitleChooser";
+import { TopicChooserProps } from "./TopicChooser";
 
-export function useTitleChooserController(props: TitleChooserProps) {
+export function useTopicChooserController(props: TopicChooserProps) {
   const [input, setInput] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const userId = useStoreState((_) => _.game.user).id;
@@ -12,8 +12,8 @@ export function useTitleChooserController(props: TitleChooserProps) {
   const socket = useRoomSocketContext();
 
   const handleSubmit = useCallback(
-    (title: string) => {
-      socket?.initialChoice({ uid: userId, title });
+    (topic: string) => {
+      socket?.initialChoice({ uid: userId, topic });
       setSubmitted(true);
     },
     [socket, setSubmitted, userId]
@@ -32,12 +32,12 @@ export function useTitleChooserController(props: TitleChooserProps) {
   );
 
   return {
-    chosenTitle: currentCard?.title,
+    chosenTopic: currentCard?.topic,
     submitted,
     onSubmitInput,
     onSelectOption,
     input,
     setInput,
-    options: currentCard?.titleOptions ?? [],
+    options: currentCard?.topicOptions ?? [],
   };
 }

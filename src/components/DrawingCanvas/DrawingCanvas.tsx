@@ -9,7 +9,7 @@ export function DrawingCanvas(props: DrawingCanvasProps) {
 	return <div className="DrawingCanvas">
 		<header>
 			<textarea
-				value={controller.currentRound?.title}
+				value={controller.currentRound?.topic}
 				disabled
 			/>
 		</header>

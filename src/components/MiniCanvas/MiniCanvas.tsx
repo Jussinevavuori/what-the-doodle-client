@@ -6,7 +6,7 @@ import { useMiniCanvasController } from "./useMiniCanvasController";
 export type MiniCanvasProps = {
 	round: GameRound;
 
-	hideTitle?: boolean;
+	hideTopic?: boolean;
 	hideGuesser?: boolean;
 
 	clickLabel?: string;
@@ -22,7 +22,7 @@ export function MiniCanvas(props: MiniCanvasProps) {
 	return <div className={cx("MiniCanvas")}>
 		<header>
 			<textarea
-				value={props.hideTitle ? "???" : props.round.title}
+				value={props.hideTopic ? "???" : props.round.topic}
 				disabled
 			/>
 		</header>

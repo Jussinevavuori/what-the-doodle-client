@@ -22,11 +22,11 @@ export function useFinalDrawingPickerController(
     [rounds, nRounds]
   );
 
-  // Get correct title to display
-  const correctTitle = useMemo(() => {
+  // Get correct topic to display
+  const correctTopic = useMemo(() => {
     return (
       rounds.find((_) => _.roundNumber === 0 && _.drawerId === user.id)
-        ?.title ?? ""
+        ?.topic ?? ""
     );
   }, [rounds, user]);
 
@@ -75,7 +75,7 @@ export function useFinalDrawingPickerController(
 
   return {
     isDisabled,
-    correctTitle,
+    correctTopic,
     lastRounds,
     getGuesser,
     getOnPick,

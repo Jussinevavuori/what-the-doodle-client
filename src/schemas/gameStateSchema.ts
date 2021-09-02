@@ -17,8 +17,8 @@ export const gameStateSchema = z.object({
   cards: z.array(
     z.object({
       id: z.string(),
-      title: z.string(),
-      titleOptions: z.array(z.string()),
+      topic: z.string(),
+      topicOptions: z.array(z.string()),
       cardNumber: z.number().nonnegative().int(),
     })
   ),
@@ -29,7 +29,7 @@ export const gameStateSchema = z.object({
       cardId: z.string(),
       picture: z.string(),
       guess: z.string(),
-      title: z.string(),
+      topic: z.string(),
       drawerId: z.string(),
       guesserId: z.string(),
       roundNumber: z.number().nonnegative().int(),

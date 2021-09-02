@@ -6,11 +6,11 @@ import { Lobby } from "../Lobby/Lobby";
 import { RoomHeader } from "../RoomHeader/RoomHeader";
 import { GuessingCanvas } from "../GuessingCanvas/GuessingCanvas";
 import { RoomHooksRoot } from "../RoomHooksRoot/RoomHooksRoot";
-import { TitleChooser } from "../TitleChooser/TitleChooser";
 import { PlayerBottomList } from "../PlayerBottomList/PlayerBottomList";
 import { AnimatedBackground } from "../AnimatedBackground/AnimatedBackground";
 import { FinalDrawingPicker } from "../FinalDrawingPicker/FinalDrawingPicker";
 import { FinalReview } from "../FinalReview/FinalReview";
+import { TopicChooser } from "../TopicChooser/TopicChooser";
 
 export type RoomProps = {
 
@@ -45,7 +45,7 @@ export function Room(props: RoomProps) {
 
 							case "choose":
 								return <>
-									<TitleChooser />
+									<TopicChooser />
 								</>
 
 							case "draw":

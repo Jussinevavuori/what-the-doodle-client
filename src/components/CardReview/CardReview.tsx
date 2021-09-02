@@ -34,7 +34,7 @@ export function CardReview(props: CardReviewProps) {
 									<p>
 										<span className="name">{round.drawer.name}</span>
 										<span className="verb">{" drew:"}</span>
-										<span className="title">{round.round.title}</span>
+										<span className="title">{round.round.topic}</span>
 									</p>
 								</Container>
 							</>

@@ -21,7 +21,7 @@ export function FinalDrawingPicker(props: FinalDrawingPickerProps) {
 				{`Your drew`}
 			</span>
 			<h1>
-				{controller.correctTitle}
+				{controller.correctTopic}
 			</h1>
 		</Container>
 

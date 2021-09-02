@@ -27,6 +27,8 @@ export function useHomeController(props: HomeProps) {
     () => readQueryParam("fromRoomId") ?? ""
   );
 
+  // If inputting room input which is an URL (we decide it is an URL if it
+  // contains "/r/" we only parse the last path segment if one exists)
   useEffect(() => {
     if (roomIdInput.includes("/r/")) {
       const parts = roomIdInput.split("/");
