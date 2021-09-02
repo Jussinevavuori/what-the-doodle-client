@@ -2,9 +2,6 @@
 
 ## Important
 
-- Come up with a name
-- Git repo for client
-- Git repo for server
 - Deployment
 - Fill action
 - Clear action
