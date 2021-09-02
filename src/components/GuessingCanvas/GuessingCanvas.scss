@@ -1,0 +1,60 @@
+@import "main";
+
+.GuessingCanvas {
+  width: 40rem;
+  margin: 0 auto;
+
+  & > header {
+    background: #41426e;
+    color: White;
+    padding: $spacing-4;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+    position: relative;
+    border-radius: $radius-sm $radius-sm 0 0;
+
+    & > textarea {
+      resize: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      padding: $spacing-2 $spacing-4;
+      border-radius: $spacing-2;
+      width: 100%;
+      font-size: $text-lg;
+      color: white;
+
+      &:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    & > button {
+      position: absolute;
+      right: $spacing-4;
+      bottom: 0;
+      transform: translate(0, 45%);
+      background: $green-600;
+      color: white;
+      cursor: pointer;
+      &:disabled {
+        background: $green-800;
+        color: rgba(255, 255, 255, 0.2);
+      }
+      &:hover,
+      &:focus {
+        background: $green-700;
+      }
+      &:active {
+        background: $green-800;
+      }
+    }
+  }
+
+  & > canvas {
+    touch-action: none;
+    background: white;
+    width: 100%;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+    border-radius: 0 0 $radius-sm $radius-sm;
+  }
+}

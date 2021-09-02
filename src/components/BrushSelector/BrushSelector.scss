@@ -1,0 +1,156 @@
+@import "main";
+
+.BrushSelector {
+  width: 100%;
+  display: flex;
+  // flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-10;
+
+  &.locked {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  & > ul {
+    // display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-2;
+
+    & > .tool,
+    & > .brush {
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 1rem;
+      position: relative;
+      overflow: visible;
+      cursor: pointer;
+      box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.06),
+        -2px -4px 6px rgba(0, 0, 0, 0.06), 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+      }
+      &:hover,
+      &:focus {
+        outline: none;
+        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.06),
+          -2px -4px 6px rgba(0, 0, 0, 0.06), 1px 1px 1px rgba(0, 0, 0, 0.1),
+          0 0 10px 3px rgba(0, 0, 255, 0.4);
+      }
+      &:hover {
+        &::before {
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+      &:active {
+        &::before {
+          background: rgba(0, 0, 0, 0.15);
+        }
+      }
+    }
+
+    & > .tool {
+      background: $gray-300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.fill {
+        & > .fillIcon {
+          clip-path: polygon(0% 0%, 100% 0%, 100% 83%, 0% 83%);
+          transform: translateY(14%) scale(1.05);
+        }
+      }
+      &.erase {
+        & > .eraserIcon {
+          position: relative;
+          transform: rotate(-45deg) scaleX(-1) scale(0.85);
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          bottom: 6.6px;
+          height: 1.8px;
+          width: 16px;
+          border-radius: 2px;
+          background: black;
+          transform: translateX(-50%);
+        }
+      }
+
+      &.clear {
+        color: $red-600;
+      }
+
+      &.selected {
+        background: $blue-100;
+        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.06),
+          -2px -4px 6px rgba(0, 0, 0, 0.06), 1px 1px 1px rgba(0, 0, 0, 0.1),
+          0 0 10px rgba(0, 0, 255, 0.5);
+      }
+    }
+
+    & > .brush {
+      &.color {
+        &.selected {
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: white;
+          }
+        }
+        &.isWhite {
+          &::after {
+            background: black;
+          }
+        }
+      }
+
+      &.size {
+        background: $gray-300;
+
+        &.selected {
+          background: $blue-100;
+          box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.06),
+            -2px -4px 6px rgba(0, 0, 0, 0.06), 1px 1px 1px rgba(0, 0, 0, 0.1),
+            0 0 10px rgba(0, 0, 255, 0.5);
+
+          & > span {
+            background: $blue-800;
+          }
+        }
+
+        & > span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          display: block;
+          background: black;
+          transform: translate(-50%, -50%) scale(1.2);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

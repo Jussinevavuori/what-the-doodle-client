@@ -1,0 +1,41 @@
+@import "main";
+
+.RoomHeader {
+  width: 100%;
+  padding: $spacing-4 $spacing-6;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $spacing-6;
+  background: $gray-100;
+  color: $gray-800;
+  box-shadow: 0 2.8px 2.2px -50px rgba(0, 0, 0, 0.02),
+    0 6.7px 5.3px -50px rgba(0, 0, 0, 0.028),
+    0 12.5px 10px -50px rgba(0, 0, 0, 0.035),
+    0 22.3px 17.9px -50px rgba(0, 0, 0, 0.042),
+    0 41.8px 33.4px -50px rgba(0, 0, 0, 0.05),
+    0 100px 80px -50px rgba(0, 0, 0, 0.07);
+
+  & > .status {
+    justify-self: left;
+  }
+
+  & > .controls {
+    justify-self: right;
+  }
+
+  & > .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-6;
+
+    & > button {
+      padding: $spacing-2 $spacing-6;
+      border-radius: $spacing-1;
+      cursor: pointer;
+      border: none;
+      background: $green-500;
+    }
+  }
+}

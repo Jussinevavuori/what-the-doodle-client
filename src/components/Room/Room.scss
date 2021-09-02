@@ -1,0 +1,32 @@
+@import "main";
+
+.Room {
+  min-height: 100vh;
+  position: relative;
+
+  & > .playerList {
+    z-index: 10;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  & > main {
+    padding-top: $spacing-4;
+    & > .draw,
+    & > .guess {
+      display: grid;
+      grid-template: ". canvas tools" 1fr / 1fr auto 1fr;
+
+      & > .brushSelector {
+        grid-area: tools;
+        margin-left: auto;
+        padding: 0 $spacing-6;
+      }
+      & > .canvas {
+        overflow: hidden;
+        grid-area: canvas;
+      }
+    }
+  }
+}

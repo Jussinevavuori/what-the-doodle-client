@@ -1,0 +1,15 @@
+@import "main";
+
+.FinalReview {
+  & > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: $spacing-6;
+    margin: 0 auto;
+    padding: 0 $spacing-6;
+    @include md {
+      padding: 0 $spacing-16;
+    }
+  }
+  padding-bottom: $spacing-20;
+}
