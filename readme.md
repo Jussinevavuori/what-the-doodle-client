@@ -10,7 +10,7 @@
 
 - Mobile optimizations
 - Design system
-- Better styling
+  2- Better styling
 - React improvements (more components)
 - Client-side code quality improvements (less spaghetti with roomsocket)
 - Improve guessing interaction (enter sends)

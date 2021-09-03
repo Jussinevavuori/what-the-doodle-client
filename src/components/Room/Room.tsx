@@ -35,7 +35,6 @@ export function Room(props: RoomProps) {
 			<main>
 				{
 					(() => {
-
 						switch (controller.gameStatus) {
 
 							case "idle":

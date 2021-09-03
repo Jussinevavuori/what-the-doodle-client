@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-export class WebSocketChannel {
+export class IoSocket {
   readonly socket: Socket;
 
   constructor() {
@@ -19,5 +19,13 @@ export class WebSocketChannel {
 
   protected __disconnect() {
     this.socket.disconnect();
+  }
+
+  /**
+   * Utility function for emitting
+   */
+  protected emit(event: string, ...args: any[]) {
+    console.log(`Emit ${event}`, args);
+    this.socket.emit(event, ...args);
   }
 }

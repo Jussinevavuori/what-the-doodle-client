@@ -10,7 +10,6 @@ export type BrushSelectorProps = {
 }
 
 export function BrushSelector(props: BrushSelectorProps) {
-
 	const controller = useBrushSelectorController(props)
 
 	return <div className={cx("BrushSelector", { locked: props.locked })}>

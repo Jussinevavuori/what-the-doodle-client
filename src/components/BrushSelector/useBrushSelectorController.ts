@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useBrush } from "../../hooks/game/useBrush";
 import { Brush } from "../../lib/drawing/Brush";
 import { Color } from "../../lib/drawing/Color";
@@ -7,7 +7,18 @@ import { BrushSelectorProps } from "./BrushSelector";
 export function useBrushSelectorController(props: BrushSelectorProps) {
   const [brush, setBrush] = useBrush();
 
+  const lastSelectedBrush = useRef<Brush | null>(null);
   const lastSelectedColor = useRef<Color>(Brush.DefaultBrush.color);
+
+  // Memorize last selected brush and automatically clear canvasclear brush
+  // selection to last selected brush
+  useEffect(() => {
+    if (brush === Brush.CanvasClear) {
+      setBrush(lastSelectedBrush.current ?? Brush.DefaultBrush);
+    } else {
+      lastSelectedBrush.current = brush;
+    }
+  }, [lastSelectedBrush, brush, setBrush]);
 
   const handleSelectSize = useCallback(
     (size: number) => {
@@ -57,7 +68,9 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
     setBrush(new Brush({ size: brush.size, color: brush.color, type: "fill" }));
   }, [brush, setBrush]);
 
-  const handleClear = useCallback(() => {}, []);
+  const handleClear = useCallback(() => {
+    setBrush(Brush.CanvasClear);
+  }, [setBrush]);
 
   return {
     selectedColor: brush.color,

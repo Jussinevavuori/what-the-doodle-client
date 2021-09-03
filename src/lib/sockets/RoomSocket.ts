@@ -6,10 +6,10 @@ import { store } from "../../store";
 import { DrawingActionSerializer } from "../drawing/DrawingActionSerializer";
 import { Picture } from "../drawing/Picture";
 import { PubSubChannel } from "../pubsub/PubSub";
-import { WebSocketChannel } from "./WebSocketChannel";
+import { IoSocket } from "./IoSocket";
 import { z } from "zod";
 
-export class RoomSocket extends WebSocketChannel {
+export class RoomSocket extends IoSocket {
   // ---------------------------------------------------------------------------
   // Static properties
   // ---------------------------------------------------------------------------
@@ -79,14 +79,6 @@ export class RoomSocket extends WebSocketChannel {
       RoomSocket.Sockets[roomId].__disconnect();
     }
     RoomSocket.Sockets[roomId] = this;
-  }
-
-  /**
-   * Emit helper
-   */
-  private emit(event: string, ...args: any[]) {
-    // console.log(`EMIT ${event}`, args);
-    this.socket.emit(event, ...args);
   }
 
   /**

@@ -1,5 +1,6 @@
 import * as DEVICE from "react-device-detect";
 import { Brush } from "./Brush";
+import { ClearDrawingAction } from "./ClearDrawingAction";
 import { DrawDrawingAction } from "./DrawDrawingAction";
 import { FillDrawingAction } from "./FillDrawingAction";
 import { Picture } from "./Picture";
@@ -92,9 +93,15 @@ export class CanvasController {
   }
 
   /**
-   * Set new brush
+   * Set new brush or if selecting the canvas clear brush, automatically
+   * clear canvas.
    */
   public setBrush(brush: Brush) {
+    if (brush === Brush.CanvasClear) {
+      this.picture?.apply(new ClearDrawingAction("local", Brush.CanvasClear));
+      return;
+    }
+
     this.brush = brush;
   }
 

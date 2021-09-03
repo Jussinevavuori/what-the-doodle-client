@@ -42,6 +42,12 @@ export class Brush {
       type: "erase",
     });
 
+  static CanvasClear = new Brush({
+    size: -1,
+    color: Color.White,
+    type: "erase",
+  });
+
   static DefaultBrush = new Brush({
     size: 13,
     color: new Color({ r: 0, g: 0, b: 0, a: 255 }),
@@ -69,8 +75,9 @@ export class Brush {
     // Color.fromHexString("#007bb2"), // Light blue (dark)
     Color.fromHexString("#00e5ff"), // Cyan
     // Color.fromHexString("#00a0b2"), // Cyan (dark)
-    Color.fromHexString("#1de9b6"), // Teal
+    // Color.fromHexString("#1de9b6"), // Teal
     // Color.fromHexString("#14a37f"), // Teal (dark)
+    Color.fromHexString("#3da827"), // Green
     Color.fromHexString("#00e676"), // Green
     // Color.fromHexString("#00a152"), // Green (dark)
     // Color.fromHexString("#76ff03"), // Light green
@@ -82,8 +89,9 @@ export class Brush {
     // Color.fromHexString("#ffc400"), // Amber
     // Color.fromHexString("#b28900"), // Amber (dark)
     Color.fromHexString("#ff9100"), // Orange
+    Color.fromHexString("#77492f"), // Brown
     // Color.fromHexString("#b26500"), // Orange (dark)
-    Color.fromHexString("#ff3d00"), // Deep orange
+    // Color.fromHexString("#ff3d00"), // Deep orange
     // Color.fromHexString("#b22a00"), // Deep orange (dark)
   ];
 }

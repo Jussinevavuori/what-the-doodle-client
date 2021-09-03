@@ -24,6 +24,20 @@ export class Color {
   }
 
   /**
+   * Constructor to conccert a Uint8ClampedArray (r,g,b,a?) into a color object.
+   * If Uint8ClampedArray has invalid length (not 3 or 4), return invalid color
+   * object. If alpha value not provided (length is 3), 255 is used as default
+   * value.
+   */
+  static fromUint8ClampedArray(arr: Uint8ClampedArray) {
+    if (arr.length === 3 || arr.length === 4) {
+      return new Color({ r: arr[0], g: arr[1], b: arr[2], a: arr[3] ?? 255 });
+    } else {
+      return Color.Invalid;
+    }
+  }
+
+  /**
    * Parse color from hex string
    */
   static fromHexString(hex: string) {
@@ -82,6 +96,11 @@ export class Color {
       Number.isSafeInteger(n) && n >= 0 && n <= 255;
     return [this.r, this.g, this.b, this.a].every((_) => _isValid(_));
   }
+
+  /**
+   * Invalid coor
+   */
+  static Invalid = new Color({ r: -1, g: -1, b: -1, a: -1 });
 
   /**
    * White default color

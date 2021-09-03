@@ -41,12 +41,12 @@ export class Picture {
   /**
    * Default picture size
    */
-  static defaultSize = { width: 600, height: 420 };
+  static defaultSize = { width: 720, height: 420 };
 
   /**
    * Check that a pixel is within bounds
    */
-  private isPixelWithinBounds(x: number, y: number): boolean {
+  isPixelWithinBounds(x: number, y: number): boolean {
     const _x = Math.floor(x);
     const _y = Math.floor(y);
     return !(_x < 0 || _y < 0 || _x >= this.width || _y >= this.height);
@@ -84,6 +84,14 @@ export class Picture {
       colors[j] = this.pixels[i + j];
     }
     return colors;
+  }
+
+  /**
+   * Helper method to get pixel color as color object
+   */
+  getPixelColor(x: number, y: number): Color {
+    if (!this.isPixelWithinBounds(x, y)) return Color.Invalid;
+    return Color.fromUint8ClampedArray(this.getPixel(x, y));
   }
 
   /**
