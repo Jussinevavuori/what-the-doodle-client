@@ -1,10 +1,12 @@
 import "./Home.scss";
 import cx from "classnames"
-import { Icon, IconButton } from "@material-ui/core";
+import LogoSvg from "../../assets/logo.svg"
+import { Button, Icon, IconButton, Tooltip } from "@material-ui/core";
 import { Casino as RandomIcon } from "@material-ui/icons";
 import { useHomeController } from "./useHomeController"
 import { AnimatedBackground } from "../AnimatedBackground/AnimatedBackground";
 import { Container } from "../Container/Container";
+import { Type } from "../Type/Type";
 
 export type HomeProps = {
 
@@ -18,43 +20,55 @@ export function Home(props: HomeProps) {
 		<AnimatedBackground />
 
 		<div className="Home">
+
+			<div className="logo">
+				<img src={LogoSvg} alt="Logo" />
+			</div>
 			<main>
 
 				<Container className="playerForm">
-					<p>Who are you?</p>
+					<Type>
+						{"Who are you?"}
+					</Type>
 
 					<div className="avatar">
 						<div className="avatarActions">
-							<IconButton
-								className={cx("gender", "male", {
-									selected: controller.avatar.startsWith("male")
-								})}
-								onClick={controller.onChangeAvatarGender("male")}
-							>
-								<Icon children="male" />
-							</IconButton>
-							<IconButton
-								className={cx("gender", "female", {
-									selected: controller.avatar.startsWith("female")
-								})}
-								onClick={controller.onChangeAvatarGender("female")}
-							>
-								<Icon children="female" />
-							</IconButton>
-							<IconButton
-								className="randomize"
-								key={controller.avatar}
-								onClick={controller.onRandomizeAvatar}
-							>
-								<RandomIcon />
-							</IconButton>
+							<Tooltip title="Male">
+								<IconButton
+									className={cx("gender", "male", {
+										selected: controller.avatar.startsWith("male")
+									})}
+									onClick={controller.onChangeAvatarGender("male")}
+								>
+									<Icon children="male" />
+								</IconButton>
+							</Tooltip>
+							<Tooltip title="Female">
+								<IconButton
+									className={cx("gender", "female", {
+										selected: controller.avatar.startsWith("female")
+									})}
+									onClick={controller.onChangeAvatarGender("female")}
+								>
+									<Icon children="female" />
+								</IconButton>
+							</Tooltip>
+							<Tooltip title="Randomize avatar">
+								<IconButton
+									className="randomize"
+									key={controller.avatar}
+									onClick={controller.onRandomizeAvatar}
+								>
+									<RandomIcon />
+								</IconButton>
+							</Tooltip>
 						</div>
 						<img alt="Avatar" src={controller.avatarUrl} />
 					</div>
 
 
 					<div className="inputContainer">
-						<label>Player name</label>
+						<Type component="label">Player name</Type>
 						<input
 							value={controller.name}
 							onChange={e => controller.setName(e.target.value.substring(0, 16))}
@@ -83,9 +97,13 @@ export function Home(props: HomeProps) {
 							/>
 						</div>
 
-						<button className="join" type="submit">
+						<Button
+							className="join"
+							type="submit"
+							variant="outlined"
+						>
 							Play
-						</button>
+						</Button>
 					</form>
 				</Container>
 			</main>

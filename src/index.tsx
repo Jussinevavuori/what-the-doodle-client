@@ -7,16 +7,20 @@ import { StoreProvider } from 'easy-peasy';
 import { store } from './store';
 import { BrowserRouter } from "react-router-dom"
 import { SnackbarProvider } from "notistack"
+import { MuiThemeProvider } from '@material-ui/core';
+import { muiTheme } from './styles/muiTheme';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<StoreProvider store={store}>
 			<BrowserRouter>
-				<SnackbarProvider
-					anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-				>
-					<App />
-				</SnackbarProvider>
+				<MuiThemeProvider theme={muiTheme}>
+					<SnackbarProvider
+						anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+					>
+						<App />
+					</SnackbarProvider>
+				</MuiThemeProvider>
 			</BrowserRouter>
 		</StoreProvider>
 	</React.StrictMode>,

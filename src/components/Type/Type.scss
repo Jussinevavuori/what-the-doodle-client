@@ -1,0 +1,50 @@
+@import "main";
+
+// Generate all color styles
+@each $name, $color in $colors {
+  .Type.Type-color-#{$name} {
+    color: $color;
+  }
+}
+
+// Generate all size styles
+@each $name, $size in $text-sizes {
+  .Type.Type-size-#{$name} {
+    font-size: $size;
+  }
+}
+
+.Type {
+  & * {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  &.centered {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &.pointerEventsDisabled {
+    pointer-events: none;
+  }
+
+  &.hasOnClickEvent {
+    cursor: pointer;
+  }
+
+  /** Variants */
+  &.Type-variant-regular {
+    @include text-regular;
+  }
+  &.Type-variant-bold {
+    @include text-bold;
+  }
+  &.Type-variant-extrabold {
+    @include text-extrabold;
+  }
+  &.Type-variant-boldcaps {
+    @include text-boldcaps;
+  }
+}

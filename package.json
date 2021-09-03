@@ -35,7 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "create-component": "node ./scripts/create-component"
+    "create-component": "node ./scripts/create-component",
+    "update-styles": "node ./scripts/update-styles"
   },
   "eslintConfig": {
     "extends": [

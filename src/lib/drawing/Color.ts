@@ -1,14 +1,72 @@
+import { clamp } from "../functions/clamp";
+import { lerp } from "../functions/lerp";
+import { mapValue } from "../functions/mapValue";
+
 export class Color {
   readonly r: number;
   readonly g: number;
   readonly b: number;
   readonly a: number;
 
+  readonly h: number;
+  readonly s: number;
+  readonly l: number;
+
   constructor(options: { r: number; g: number; b: number; a?: number }) {
-    this.r = options.r;
-    this.g = options.g;
-    this.b = options.b;
-    this.a = options.a ?? 255;
+    this.r = Math.floor(options.r);
+    this.g = Math.floor(options.g);
+    this.b = Math.floor(options.b);
+    this.a = Math.floor(options.a ?? 255);
+
+    // Convert to hsl
+    const _r = this.r / 255;
+    const _g = this.g / 255;
+    const _b = this.b / 255;
+    const _c_max = Math.max(_r, _g, _b);
+    const _c_min = Math.min(_r, _g, _b);
+    const _d = _c_max - _c_min;
+    this.h = (() => {
+      if (_d === 0) return 0;
+      else if (_c_max === _r) return 60 * (((_g - _b) / _d) % 6);
+      else if (_c_max === _g) return 60 * ((_b - _r) / _d + 2);
+      else return 60 * ((_r - _g) / _d + 4);
+    })();
+    this.l = (_c_max + _c_min) / 2;
+    this.s = _d === 0 ? 0 : _d / (1 - Math.abs(2 * this.l - 1));
+  }
+
+  /**
+   * Generate color from HSLA
+   */
+  static fromHsla(h: number, s: number, l: number, alpha: number = 100) {
+    const _h = h < 0 ? 360 + (h % 360) : h % 360;
+    const _s = clamp(s % 1, 0, 1);
+    const _l = clamp(l % 1, 0, 1);
+    const c = (1 - Math.abs(2 * _l - 1)) * _s;
+    const x = c * (1 - Math.abs(((_h / 60) % 2) - 1));
+    const m = _l - c / 2;
+    const a = mapValue(alpha, 0, 100, 0, 255);
+    const _rgb = (() => {
+      if (_h < 60) {
+        return [c, x, 0];
+      } else if (_h < 120) {
+        return [x, c, 0];
+      } else if (_h < 180) {
+        return [0, c, x];
+      } else if (_h < 240) {
+        return [0, x, c];
+      } else if (_h < 300) {
+        return [x, 0, c];
+      } else {
+        return [c, 0, x];
+      }
+    })();
+    return new Color({
+      r: 255 * (_rgb[0] + m),
+      g: 255 * (_rgb[1] + m),
+      b: 255 * (_rgb[2] + m),
+      a,
+    });
   }
 
   /**
@@ -65,13 +123,13 @@ export class Color {
   /**
    * Color as hex string
    */
-  toHexString() {
+  toHexString(opts: { omitAlpha?: boolean } = {}) {
     return (
       "#" +
       this.r.toString(16).padStart(2, "0") +
       this.g.toString(16).padStart(2, "0") +
       this.b.toString(16).padStart(2, "0") +
-      this.a.toString(16).padStart(2, "0")
+      (opts.omitAlpha ? "" : this.a.toString(16).padStart(2, "0"))
     );
   }
 
@@ -111,4 +169,32 @@ export class Color {
    * Black default color
    */
   static Black = new Color({ r: 0, g: 0, b: 0, a: 255 });
+
+  /**
+   * Lerps two colors
+   */
+  static lerp(a: Color, b: Color, t: number) {
+    return new Color({
+      r: lerp(a.r, b.r, t),
+      g: lerp(a.g, b.g, t),
+      b: lerp(a.b, b.b, t),
+      a: lerp(a.a, b.a, t),
+    });
+  }
+
+  /**
+   * Lerps two colors in hsla values
+   */
+  static lerpHsla(a: Color, b: Color, t: number) {
+    const targetHue =
+      Math.abs(a.h - b.h) < Math.abs(a.h - (-360 + b.h)) ? b.h : -360 + b.h;
+    return Color.fromHsla(
+      lerp(a.h, targetHue, t),
+      lerp(a.s, b.s, t),
+      lerp(a.l, b.l, t),
+      lerp(a.a, b.a, t)
+    );
+  }
 }
+
+(window as any).Color = Color;
