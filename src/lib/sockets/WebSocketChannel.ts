@@ -4,7 +4,7 @@ export class WebSocketChannel {
   readonly socket: Socket;
 
   constructor() {
-    this.socket = io("ws://192.168.10.35:8000", {
+    this.socket = io(`ws://${process.env.SERVER_URL ?? "localhost"}:8000`, {
       reconnectionDelayMax: 10000,
       transports: ["websocket", "polling", "flashsocket"],
       autoConnect: false,
