@@ -10,6 +10,7 @@ export class WebSocketChannel {
         reconnectionDelayMax: 10000,
         transports: ["websocket", "polling", "flashsocket"],
         autoConnect: false,
+        secure: process.env.NODE_ENV === "production",
       }
     );
   }
