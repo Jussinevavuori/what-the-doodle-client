@@ -5,20 +5,12 @@ export class WebSocketChannel {
 
   constructor() {
     const prod = process.env.NODE_ENV === "production";
-    this.socket = io(
-      [
-        prod ? "wss" : "ws",
-        "://",
-        process.env.REACT_APP_SERVER_URL ?? "localhost",
-        ":8000",
-      ].join(""),
-      {
-        reconnectionDelayMax: 10000,
-        transports: ["websocket", "polling", "flashsocket"],
-        autoConnect: false,
-        secure: prod,
-      }
-    );
+    this.socket = io(process.env.REACT_APP_SERVER_URL ?? "localhost", {
+      reconnectionDelayMax: 10000,
+      transports: ["websocket", "polling", "flashsocket"],
+      autoConnect: false,
+      secure: prod,
+    });
   }
 
   protected __connect() {
