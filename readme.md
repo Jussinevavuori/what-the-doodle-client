@@ -1,17 +1,10 @@
-# Todo
+![What the Doodle Logo](./src/assets/logo.svg)
 
-## Important
+# What the Doodle?
 
-- Deployment
-- Fill action
-- Clear action
+[Play what the doodle](https://what-the-doodle-client.vercel.app/)
 
-## Less important
+What the Doodle is a simple and fun party-game for preferably 4 - 8 eight people. Get together on an online call and start drawing. Each player gets to choose a starting topic from several random topics or comes up with their own topic. All players will then draw their topics and the next player gets to guess what the previous player drew and the next player gets to draw the guess. The game proceeds on and on in multiple rounds with people guessing what the previous player drew and the next player drawing the guess until the original topic is long lost and the players are tasked with the difficult task of recognizing which drawing is a representation of their starting topic.
 
-- Mobile optimizations
-- Design system
-  2- Better styling
-- React improvements (more components)
-- Client-side code quality improvements (less spaghetti with roomsocket)
-- Improve guessing interaction (enter sends)
-- Server-side code quality improvements (less spaghetti)
+The application was built as a quick and fun sideproject using React and WebSockets.
+See the server code [here](https://github.com/Jussinevavuori/what-the-doodle-server).
