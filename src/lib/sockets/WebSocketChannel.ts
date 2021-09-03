@@ -4,13 +4,19 @@ export class WebSocketChannel {
   readonly socket: Socket;
 
   constructor() {
+    const prod = process.env.NODE_ENV === "production";
     this.socket = io(
-      `ws://${process.env.REACT_APP_SERVER_URL ?? "localhost"}:8000`,
+      [
+        prod ? "wss" : "ws",
+        "://",
+        process.env.REACT_APP_SERVER_URL ?? "localhost",
+        ":8000",
+      ].join(""),
       {
         reconnectionDelayMax: 10000,
         transports: ["websocket", "polling", "flashsocket"],
         autoConnect: false,
-        secure: process.env.NODE_ENV === "production",
+        secure: prod,
       }
     );
   }
