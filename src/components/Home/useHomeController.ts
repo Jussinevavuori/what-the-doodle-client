@@ -8,6 +8,7 @@ import { useStoreActions } from "../../store";
 import { HomeProps } from "./Home";
 import { useSnackbar } from "notistack";
 import { readQueryParam } from "../../lib/url/readQueryParam";
+import { focusElement } from "../../lib/dom/focusElement";
 
 export function useHomeController(props: HomeProps) {
   const { enqueueSnackbar } = useSnackbar();
@@ -64,11 +65,12 @@ export function useHomeController(props: HomeProps) {
       return;
     }
 
-    // No name given
+    // No name given (auto-focus name input)
     if (!user.name.trim()) {
       enqueueSnackbar("Enter a name", {
         variant: "info",
       });
+      focusElement({ query: "#Home--user-name-input" });
       return;
     }
 
@@ -82,6 +84,7 @@ export function useHomeController(props: HomeProps) {
       enqueueSnackbar("Enter a name", {
         variant: "info",
       });
+      focusElement({ query: "#Home--user-name-input" });
       return;
     }
 
@@ -90,8 +93,8 @@ export function useHomeController(props: HomeProps) {
   }, [enqueueSnackbar, user, history]);
 
   return {
+    player: user,
     avatar: user.avatar,
-    avatarUrl: user.avatarUrl,
     onChangeAvatarGender,
     onRandomizeAvatar,
     onNewGame,

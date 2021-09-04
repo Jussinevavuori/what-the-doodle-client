@@ -13,8 +13,9 @@
     justify-content: center;
     gap: $spacing-4;
     width: 600px;
+    max-width: 90vw;
 
-    & > p.players {
+    & > .players {
       display: flex;
       justify-content: space-between;
       width: 100%;
@@ -23,6 +24,9 @@
     & > ul {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
       gap: $spacing-2;
       width: 100%;
       & > li {
@@ -36,19 +40,6 @@
         border: 1px solid $gray-400;
         background: $gray-200;
         border-radius: $radius-sm;
-        & > span {
-          display: block;
-        }
-        & > .avatar {
-          $size: 48px;
-          display: block;
-          width: $size;
-          height: $size;
-          & > img {
-            width: 100%;
-            height: 100%;
-          }
-        }
       }
     }
 
@@ -56,18 +47,15 @@
       padding: $spacing-4 0;
       text-align: left;
       width: 100%;
-      & > label {
-        display: block;
-        padding: $spacing-4 0 $spacing-3;
-        font-size: $text-sm;
-        color: $gray-700;
+      & > .label {
+        padding: $spacing-3 0 $spacing-2;
       }
       & > .copyValue {
         width: 100%;
         position: relative;
         & > input {
           width: 100%;
-          padding: $spacing-1 $spacing-3;
+          padding: $spacing-2 $spacing-3;
         }
         & > button {
           position: absolute;
@@ -78,26 +66,14 @@
       }
     }
 
-    & button.start {
-      border-radius: $spacing-1;
-      width: 100%;
-      cursor: pointer;
-      border: none;
-      background: $green-500;
-      padding: $spacing-2 $spacing-4;
-    }
-
     & > .settings {
       border-top: $border;
       margin-top: $spacing-2;
       padding-top: $spacing-6;
       width: 100%;
       & > .drawingTime {
-        & > label {
-          flex: 1;
+        & > .label {
           text-align: left;
-          font-size: $text-sm;
-          display: block;
         }
         & > .control {
           padding: $spacing-4 0;

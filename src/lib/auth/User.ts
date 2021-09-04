@@ -24,18 +24,25 @@ export class User {
    */
   isOnline: boolean;
 
+  /**
+   * Is this user instance the playing user
+   */
+  isSelf: boolean;
+
   constructor(
     id: string,
     details: {
       name?: string;
       avatar?: string;
       isOnline?: boolean;
+      isSelf?: boolean;
     } = {}
   ) {
     this.id = id;
     this.name = details.name ?? "";
     this.avatar = details.avatar ?? `male/${getRandomString(16)}`;
     this.isOnline = details.isOnline ?? true;
+    this.isSelf = details.isSelf ?? false;
   }
 
   get avatarUrl() {
@@ -97,6 +104,7 @@ export class User {
     }
     // Self is always online
     user.isOnline = true;
+    user.isSelf = true;
     return user;
   }
 

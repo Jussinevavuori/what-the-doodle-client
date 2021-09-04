@@ -34,11 +34,15 @@ export function useGuessingCanvasController(props: GuessingCanvasProps) {
     return controller.attach(picture, { disableDrawing: true });
   }, [canvasRef, picture]);
 
-  const handleSubmit = useCallback(() => {
-    if (socket && currentRound && guess.trim()) {
-      socket.guess({ roundId: currentRound.id, guess: guess.trim() });
-    }
-  }, [socket, currentRound, guess]);
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (socket && currentRound && guess.trim()) {
+        socket.guess({ roundId: currentRound.id, guess: guess.trim() });
+      }
+    },
+    [socket, currentRound, guess]
+  );
 
   return {
     currentRound,

@@ -1,9 +1,10 @@
 import "./Lobby.scss";
-import React from "react"
 import { useLobbyController } from "./useLobbyController"
-import { Icon, IconButton } from "@material-ui/core";
+import { Button, Icon, IconButton } from "@material-ui/core";
 import { Add as AddIcon, Remove as RemoveIcon } from "@material-ui/icons";
 import { Container } from "../Container/Container";
+import { Type } from "../Type/Type";
+import { PlayerAvatar } from "../PlayerAvatar/PlayerAvatar";
 
 export type LobbyProps = {
 
@@ -15,61 +16,69 @@ export function Lobby(props: LobbyProps) {
 
 	return <div className="Lobby">
 		<Container className="main">
-			<p className="players">
-				<span>
+			<div className="players">
+				<Type component="span">
 					{`Players`}
-				</span>
-				<span>
+				</Type>
+				<Type component="span">
 					{`${controller.players.length} / ${controller.maxPlayers}`}
-				</span>
-			</p>
+				</Type>
+			</div>
 
 			<ul>
 				{
 					controller.players.sort((a, b) => a.id.localeCompare(b.id)).map(p => (
 						<li key={p.id}>
-							<span className="avatar">
-								<img alt="Avatar" src={p.avatarUrl} />
-							</span>
-							<span>{p.name}</span>
+							<PlayerAvatar player={p} hideNametag size={48} />
+							<Type>{p.name}</Type>
 						</li>
 					))
 				}
 			</ul>
 
-			<button className="start" onClick={controller.handleGameStart}>
-				Start game
-			</button>
+			<Button
+				variant="contained"
+				color="primary"
+				onClick={controller.handleGameStart}
+				fullWidth
+			>
+				{"Start game"}
+			</Button>
+
+			{
+				controller.players.length < 4 &&
+				<Type color="yellow-700" size="sm">
+					{"A minimum of 4 players is recommended for the game"}
+				</Type>
+			}
 
 			<div className="invite">
-				<p>Invite players</p>
-				<label>
-					Copy the room ID
-				</label>
+				<Type>
+					{"Invite players"}
+				</Type>
+				<Type className="label" size="sm" color="gray-700">
+					{"Copy the room name"}
+				</Type>
 				<div className="copyValue">
 					<input
-						id="Lobby--room-id-input"
+						id="Lobby--room-id"
 						value={controller.roomId}
 						disabled
 					/>
-					<IconButton
-						onClick={controller.copy("Lobby--room-id-input")}
-					>
+					<IconButton onClick={controller.copy("Lobby--room-id")}>
 						<Icon children="content_copy" />
 					</IconButton>
 				</div>
-				<label>
-					Copy the room invite URL
-				</label>
+				<Type className="label" size="sm" color="gray-700">
+					{"Copy the room invite link"}
+				</Type>
 				<div className="copyValue">
 					<input
 						disabled
-						id="Lobby--room-url-input"
+						id="Lobby--room-url"
 						value={controller.roomUrl}
 					/>
-					<IconButton
-						onClick={controller.copy("Lobby--room-url-input")}
-					>
+					<IconButton onClick={controller.copy("Lobby--room-url")}>
 						<Icon children="content_copy" />
 					</IconButton>
 				</div>
@@ -77,9 +86,9 @@ export function Lobby(props: LobbyProps) {
 
 			<div className="settings">
 				<div className="drawingTime">
-					<label>
-						Drawing time
-					</label>
+					<Type className="label" size="sm">
+						{"Drawing time"}
+					</Type>
 					<div className="control">
 						<IconButton
 							size="small"
@@ -87,9 +96,9 @@ export function Lobby(props: LobbyProps) {
 						>
 							<RemoveIcon />
 						</IconButton>
-						<span>
-							{controller.drawingTime} seconds
-						</span>
+						<Type component="span">
+							{`${controller.drawingTime} seconds`}
+						</Type>
 						<IconButton
 							size="small"
 							onClick={controller.adjustDrawingTime(+5)}

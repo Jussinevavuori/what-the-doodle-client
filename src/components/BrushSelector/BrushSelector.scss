@@ -28,7 +28,6 @@
       border-radius: 1rem;
       position: relative;
       overflow: visible;
-      cursor: pointer;
       box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.06),
         -2px -4px 6px rgba(0, 0, 0, 0.06), 1px 1px 1px rgba(0, 0, 0, 0.1);
 
@@ -140,17 +139,52 @@
             background: $blue-800;
           }
         }
+      }
+    }
+  }
 
-        & > span {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          display: block;
-          background: black;
-          transform: translate(-50%, -50%) scale(1.2);
-          border-radius: 50%;
+  & > .speedDials {
+    @include flex-row;
+    align-items: flex-end;
+
+    & > .colorSpeedDial {
+      & .MuiSpeedDial-actions {
+        transform: scale(0.8);
+        transform-origin: bottom;
+        &.MuiSpeedDial-actionsClosed {
+          pointer-events: none;
+          height: 0;
+        }
+        & .MuiSpeedDialAction-fab {
+          margin-top: 0px;
         }
       }
+    }
+  }
+
+  & span.sizeIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    background: black;
+    transform: translate(-50%, -50%) scale(1.2);
+    border-radius: 50%;
+  }
+
+  & span.colorIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    background: black;
+    transform: translate(-50%, -50%) scale(1.2);
+    border-radius: 50%;
+    width: 60%;
+    height: 60%;
+    &.main {
+      width: 40%;
+      height: 40%;
     }
   }
 }

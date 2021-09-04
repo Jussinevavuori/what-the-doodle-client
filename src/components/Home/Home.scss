@@ -5,6 +5,9 @@
   place-items: center;
   min-height: 100vh;
   padding: $spacing-10;
+  @include mobile {
+    padding: $spacing-10 $spacing-3;
+  }
 
   & > .logo {
     position: absolute;
@@ -21,8 +24,13 @@
     grid-template-columns: auto 1fr;
     gap: $spacing-10;
     position: relative;
-    & > .playerForm,
-    & > .roomForm {
+
+    @include mobile {
+      padding-top: $spacing-28;
+      grid-template-columns: 1fr;
+    }
+
+    & > .formContainer {
       min-width: 320px;
       display: flex;
       flex-direction: column;
@@ -36,7 +44,7 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: $spacing-4;
+          margin-bottom: $spacing-4;
           & > img {
             max-width: 120px;
           }
@@ -48,15 +56,16 @@
               height: 2.4rem;
             }
             & > .female {
-              color: rgb(128, 76, 84);
+              color: $pink-500;
             }
             & > .male {
-              color: rgb(39, 39, 153);
+              color: $blue-500;
             }
             & > .selected {
               border: 1px solid currentColor;
             }
             & > .randomize {
+              color: $blue-500;
               margin-left: auto;
               animation: Home_spinDice 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
@@ -73,47 +82,27 @@
           gap: $spacing-2;
         }
 
-        & button {
-          padding: $spacing-1 $spacing-4;
-          border-radius: $spacing-1;
-          width: 100%;
-          cursor: pointer;
-
-          &.newGame {
-            border: none;
-            background: $green-500;
-            padding: $spacing-2 $spacing-4;
-            border-radius: $spacing-1;
-            width: 100%;
-          }
-
-          &.join {
-            border: 1px solid $green-500;
-            background: white;
-          }
-        }
-
         & > .separator {
           padding: $spacing-6 0;
-          font-size: $text-sm;
-          color: $gray-600;
         }
       }
+    }
+  }
 
-      & .inputContainer {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: $spacing-2;
+  & > footer {
+    padding: $spacing-4;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    & > .credits {
+      @include flex-row;
+    }
 
-        & > input {
-          width: 100%;
-          padding: $spacing-1;
-          border-radius: $spacing-1;
-          border: 1px solid $blue-600;
-        }
-      }
+    @include mobile {
+      position: unset;
+      transform: none;
+      padding: $spacing-8 0 0;
     }
   }
 }

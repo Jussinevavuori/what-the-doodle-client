@@ -1,74 +1,78 @@
 @import "main";
 
 .TopicChooser {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: $spacing-10;
+  @include flex-col($spacing-6);
+  width: 600px;
+  max-width: 90vw;
 
-  & > main {
-    background: white;
-    box-shadow: 0 2.8px 2.2px -50px rgba(0, 0, 0, 0.02),
-      0 6.7px 5.3px -50px rgba(0, 0, 0, 0.028),
-      0 12.5px 10px -50px rgba(0, 0, 0, 0.035),
-      0 22.3px 17.9px -50px rgba(0, 0, 0, 0.042),
-      0 41.8px 33.4px -50px rgba(0, 0, 0, 0.05),
-      0 100px 80px -50px rgba(0, 0, 0, 0.07);
+  & > header {
+    @include flex-col($spacing-3);
+  }
+
+  & > .waiting {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: $spacing-4;
-    border-radius: $radius-md;
-    padding: $spacing-6;
-    width: 600px;
+  }
 
-    & > .loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: $spacing-4;
-      & > h1 {
-        font-size: $text-lg;
-      }
-      & > span {
-        color: $gray-600;
-      }
-    }
+  & > ul {
+    @include flex-col($spacing-2);
+    width: 100%;
 
-    & > ul {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: $spacing-2;
+    & > button {
+      @include flex-row;
+      border: none;
       width: 100%;
-      & > li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: $spacing-2 $spacing-3;
-        gap: $spacing-4;
-        border: 1px solid $gray-400;
-        background: $gray-200;
-        border-radius: $radius-sm;
-        & > form {
-          padding: $spacing-3 0;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          gap: $spacing-4;
-          & > textarea {
-            resize: none;
-            border: none;
-            background: $gray-300;
-            padding: $spacing-2 $spacing-3;
-            border-radius: $radius-sm;
-            width: 100%;
-          }
+      gap: $spacing-4;
+      border-radius: $radius-sm;
+      padding: $spacing-6 $spacing-4;
+      background: $blue-500;
+
+      // Custom icons
+      & > i {
+        position: relative;
+        width: 30px;
+        & > .base {
+          @include transform-center-y;
+          color: white;
+        }
+        & > .checked {
+          @include transform-center-y;
+          color: white;
+          transition: transform 200ms, opacity 150ms;
+          opacity: 0;
+          transform: translate(0, -50%) scale(0) rotate(0deg);
         }
       }
+      &:hover {
+        & > i > .checked {
+          opacity: 1;
+          transform: translate(0, -50%) scale(1) rotate(360deg);
+        }
+      }
+
+      // Interactivity for list options
+      &:hover,
+      &:focus {
+        background-color: $blue-600;
+      }
+      &:active {
+        background-color: $blue-300;
+      }
+    }
+  }
+
+  & > form {
+    @include flex-col;
+    background: $gray-200;
+    padding: $spacing-4 $spacing-4;
+    border-radius: $radius-sm;
+    width: 100%;
+
+    & > button {
+      width: 100%;
     }
   }
 }

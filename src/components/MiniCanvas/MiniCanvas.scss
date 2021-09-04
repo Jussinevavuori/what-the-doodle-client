@@ -1,64 +1,9 @@
 @import "main";
+@import "components/canvas";
 
 .MiniCanvas {
-  width: 25rem;
-  margin: 0 auto;
+  @include component-canvas-small;
   position: relative;
-  overflow: hidden;
-
-  & > header {
-    background: #41426e;
-    color: White;
-    padding: $spacing-4;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
-    position: relative;
-    border-radius: $radius-sm $radius-sm 0 0;
-
-    & > textarea {
-      resize: none;
-      background: rgba(255, 255, 255, 0.05);
-      border: none;
-      padding: $spacing-2 $spacing-4;
-      border-radius: $spacing-2;
-      width: 100%;
-      font-size: $text-lg;
-      color: white;
-
-      &:focus {
-        outline: none;
-        background: rgba(255, 255, 255, 0.1);
-      }
-    }
-
-    & > button {
-      position: absolute;
-      right: $spacing-4;
-      bottom: 0;
-      transform: translate(0, 45%);
-      background: $green-600;
-      color: white;
-      cursor: pointer;
-      &:disabled {
-        background: $green-800;
-        color: rgba(255, 255, 255, 0.2);
-      }
-      &:hover,
-      &:focus {
-        background: $green-700;
-      }
-      &:active {
-        background: $green-800;
-      }
-    }
-  }
-
-  & > canvas {
-    touch-action: none;
-    background: white;
-    width: 100%;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
-    border-radius: 0 0 $radius-sm $radius-sm;
-  }
 
   & > button.select {
     position: absolute;
@@ -71,7 +16,6 @@
     align-items: center;
     justify-content: center;
     gap: $spacing-4;
-    cursor: pointer;
     color: White;
     font-size: $text-lg;
     border: none;
@@ -98,33 +42,14 @@
 
   & > .guesser {
     position: absolute;
-    left: 0;
+    left: $spacing-4;
     bottom: 0;
     display: flex;
     align-items: center;
-    gap: $spacing-4;
-    padding-left: $spacing-4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    & > img {
-      width: 64px;
-    }
-    & > span {
-      background: $gray-400;
-      border-radius: $radius-sm;
-      padding: $spacing-1 $spacing-2;
-      font-size: $text-sm;
-      transform: translate(0, 3px);
-    }
+    overflow: hidden;
     transition: transform 100ms;
     transform-origin: bottom left;
     transform: scale(0.6);
-  }
-  &:hover {
-    & > .guesser {
-      transform: scale(1);
-    }
   }
 
   & > .guesserOverlay {
@@ -132,11 +57,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 160px;
+    height: 80px;
+    opacity: 0.07;
+    transition: opacity 100ms;
     background: linear-gradient(
       to top,
-      0% rgba(0, 0, 0, 1),
-      100% rgba(0, 0, 0, 0)
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
     );
+  }
+  &:hover {
+    & > .guesserOverlay {
+      opacity: 0.14;
+    }
+    & > .guesser {
+      transform: scale(1);
+    }
   }
 }

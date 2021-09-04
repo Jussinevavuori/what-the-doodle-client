@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useBrush } from "../../hooks/game/useBrush";
+import { useOpenState } from "../../hooks/utils/useOpenState";
 import { Brush } from "../../lib/drawing/Brush";
 import { Color } from "../../lib/drawing/Color";
 import { BrushSelectorProps } from "./BrushSelector";
@@ -9,6 +10,19 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
 
   const lastSelectedBrush = useRef<Brush | null>(null);
   const lastSelectedColor = useRef<Color>(Brush.DefaultBrush.color);
+
+  const brushTypeSelectorState = useOpenState();
+  const brushSizeSelectorState = useOpenState();
+  const brushColorSelectorState = useOpenState();
+
+  const closeBrushTypeSelector = brushTypeSelectorState.handleClose;
+  const closeBrushSizeSelector = brushSizeSelectorState.handleClose;
+  const closeBrushColorSelector = brushColorSelectorState.handleClose;
+  const resetStates = useCallback(() => {
+    closeBrushTypeSelector();
+    closeBrushSizeSelector();
+    closeBrushColorSelector();
+  }, [closeBrushColorSelector, closeBrushTypeSelector, closeBrushSizeSelector]);
 
   // Memorize last selected brush and automatically clear canvasclear brush
   // selection to last selected brush
@@ -23,8 +37,9 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
   const handleSelectSize = useCallback(
     (size: number) => {
       setBrush(new Brush({ size, color: brush.color, type: brush.type }));
+      resetStates();
     },
-    [brush, setBrush]
+    [brush, setBrush, resetStates]
   );
 
   const handleSelectColor = useCallback(
@@ -46,8 +61,9 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
           break;
         }
       }
+      resetStates();
     },
-    [brush, setBrush]
+    [brush, setBrush, resetStates]
   );
 
   const handleSelectBrush = useCallback(() => {
@@ -58,19 +74,23 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
         type: "brush",
       })
     );
-  }, [brush, setBrush]);
+    resetStates();
+  }, [brush, setBrush, resetStates]);
 
   const handleSelectEraser = useCallback(() => {
     setBrush(Brush.Eraser(brush.size));
-  }, [brush, setBrush]);
+    resetStates();
+  }, [brush, setBrush, resetStates]);
 
   const handleSelectFill = useCallback(() => {
     setBrush(new Brush({ size: brush.size, color: brush.color, type: "fill" }));
-  }, [brush, setBrush]);
+    resetStates();
+  }, [brush, setBrush, resetStates]);
 
   const handleClear = useCallback(() => {
     setBrush(Brush.CanvasClear);
-  }, [setBrush]);
+    resetStates();
+  }, [setBrush, resetStates]);
 
   return {
     selectedColor: brush.color,
@@ -78,6 +98,9 @@ export function useBrushSelectorController(props: BrushSelectorProps) {
     selectedBrushType: brush.type,
     availableSizes: Brush.DefaultSizes,
     availableColors: Brush.DefaultColors,
+    brushTypeSelectorState,
+    brushSizeSelectorState,
+    brushColorSelectorState,
     handleSelectSize,
     handleSelectColor,
     handleSelectBrush,

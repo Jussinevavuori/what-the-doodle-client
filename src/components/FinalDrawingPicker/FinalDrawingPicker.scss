@@ -1,24 +1,12 @@
 @import "main";
 
 .FinalDrawingPicker {
-  position: relative;
-  & > .reminder {
-    position: absolute;
-    top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    left: 50%;
-    margin-top: -$spacing-4;
-    transform: translateX(-50%);
-    z-index: 10;
-    & > h1 {
-      padding-top: $spacing-2;
-      font-size: $text-lg;
-    }
-  }
   & > ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    @include mobile {
+      @include flex-col($spacing-6);
+    }
     gap: $spacing-6;
     margin: 0 auto;
     padding: 0 $spacing-6;

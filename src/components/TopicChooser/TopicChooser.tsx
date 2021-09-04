@@ -1,9 +1,9 @@
 import "./TopicChooser.scss";
 import React from "react";
-import cx from "classnames";
 import { useTopicChooserController } from "./useTopicChooserController";
-import { IconButton } from "@material-ui/core";
-import { Done as DoneIcon } from "@material-ui/icons";
+import { Type } from "../Type/Type";
+import { Container } from "../Container/Container";
+import { Button, Icon, TextField } from "@material-ui/core";
 
 export type TopicChooserProps = {
 
@@ -13,59 +13,70 @@ export function TopicChooser(props: TopicChooserProps) {
 
 	const controller = useTopicChooserController(props)
 
-	return <div className={cx("TopicChooser")}>
-		<main>
-			{
-				controller.chosenTopic
-					? <>
-						<div className="loading">
-							<p>You are drawing:</p>
-							<h1>{controller.chosenTopic}</h1>
-							<span>Waiting for other players to choose...</span>
-						</div>
-					</>
-					: <>
-						<p>Choose an option</p>
-						<ul>
-							{
-								controller.options.map((op, i) => (
-									<li key={i}>
-										<span>
-											{op}
-										</span>
-										<IconButton
-											onClick={controller.onSelectOption(op)}
-										>
-											<DoneIcon />
-										</IconButton>
-									</li>
-								))
-							}
-						</ul>
-
-
-						<ul>
-							<li>
-								<form
-									onSubmit={e => { e.preventDefault(); controller.onSubmitInput(); }}
+	return <Container className="TopicChooser">
+		{
+			controller.chosenTopic
+				? <>
+					<div className="waiting">
+						<Type>{"Your first drawing topic is:"}</Type>
+						<Type size="lg">{controller.chosenTopic}</Type>
+						<Type color="gray-600">{"Waiting for other players to choose..."}</Type>
+					</div>
+				</>
+				: <>
+					<header>
+						<Type variant="bold">
+							{"Choose your first topic to draw"}
+						</Type>
+						<Type color="gray-700" size="sm">
+							{"Either choose a random premade topic or cope up with a topic "}
+							{"of your own."}
+						</Type>
+					</header>
+					<ul>
+						{
+							controller.options.map((op, i) => (
+								<button
+									key={i}
+									onClick={controller.onSelectOption(op)}
 								>
-									<textarea
-										placeholder="Or come up with your own"
-										rows={5}
-										value={controller.input}
-										onChange={e => controller.setInput(e.target.value)}
-									/>
-									<IconButton
-										type="submit"
-										disabled={!controller.input.trim()}
+									<i>
+										<Icon className="checked">{"check_circle"}</Icon>
+										<Icon className="base">{"radio_button_unchecked"}</Icon>
+									</i>
+									<Type
+										color="white"
+										variant="bold"
 									>
-										<DoneIcon />
-									</IconButton>
-								</form>
-							</li>
-						</ul>
-					</>
-			}
-		</main>
-	</div>
+										{op}
+									</Type>
+								</button>
+							))
+						}
+					</ul>
+
+
+					<form
+						onSubmit={e => { e.preventDefault(); controller.onSubmitInput(); }}
+					>
+						<TextField
+							variant="filled"
+							color="primary"
+							label="Custom title"
+							fullWidth
+							value={controller.input}
+							onChange={e => controller.setInput(e.target.value)}
+						/>
+						<Button
+							type="submit"
+							color="primary"
+							variant="contained"
+							disabled={!controller.input.trim()}
+						>
+							{"Valitse"}
+						</Button>
+					</form>
+				</>
+		}
+	</Container>
 }

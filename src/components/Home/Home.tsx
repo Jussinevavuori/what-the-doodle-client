@@ -1,12 +1,13 @@
 import "./Home.scss";
 import cx from "classnames"
 import LogoSvg from "../../assets/logo.svg"
-import { Button, Icon, IconButton, Tooltip } from "@material-ui/core";
+import { Button, Icon, IconButton, TextField, Tooltip } from "@material-ui/core";
 import { Casino as RandomIcon } from "@material-ui/icons";
 import { useHomeController } from "./useHomeController"
 import { AnimatedBackground } from "../AnimatedBackground/AnimatedBackground";
 import { Container } from "../Container/Container";
 import { Type } from "../Type/Type";
+import { PlayerAvatar } from "../PlayerAvatar/PlayerAvatar";
 
 export type HomeProps = {
 
@@ -26,7 +27,7 @@ export function Home(props: HomeProps) {
 			</div>
 			<main>
 
-				<Container className="playerForm">
+				<Container className="formContainer playerForm">
 					<Type>
 						{"Who are you?"}
 					</Type>
@@ -63,50 +64,84 @@ export function Home(props: HomeProps) {
 								</IconButton>
 							</Tooltip>
 						</div>
-						<img alt="Avatar" src={controller.avatarUrl} />
-					</div>
 
-
-					<div className="inputContainer">
-						<Type component="label">Player name</Type>
-						<input
-							value={controller.name}
-							onChange={e => controller.setName(e.target.value.substring(0, 16))}
+						<PlayerAvatar
+							player={controller.player}
+							size={100}
+							hideNametag
 						/>
 					</div>
+
+					<TextField
+						size="small"
+						label="Your name"
+						variant="outlined"
+						fullWidth
+						id="Home--user-name-input"
+						value={controller.name}
+						onChange={e => controller.setName(e.target.value.substring(0, 16))}
+					/>
 				</Container>
 
-				<Container className="roomForm">
-					<button
-						className="newGame"
+				<Container className="formContainer roomForm">
+					<Button
+						color="primary"
 						onClick={controller.onNewGame}
+						variant={!controller.roomId.trim() ? "contained" : "outlined"}
+						fullWidth
 					>
 						{"Create new game"}
-					</button>
+					</Button>
 
-					<div className="separator">
-						Or join an existing game
-					</div>
+					<Type color="gray-600" size="sm" className="separator">
+						{"Or join an existing game"}
+					</Type>
 
 					<form onSubmit={e => { e.preventDefault(); controller.handleSubmit() }}>
-						<div className="inputContainer">
-							<input
-								placeholder="Room name"
-								value={controller.roomId}
-								onChange={e => controller.setRoomId(e.target.value)}
-							/>
-						</div>
+
+						<TextField
+							size="small"
+							label="Room name"
+							variant="outlined"
+							fullWidth
+							value={controller.roomId}
+							onChange={e => controller.setRoomId(e.target.value)}
+						/>
 
 						<Button
-							className="join"
 							type="submit"
-							variant="outlined"
+							variant={controller.roomId.trim() ? "contained" : "outlined"}
+							color="primary"
+							fullWidth
 						>
-							Play
+							{"Play"}
 						</Button>
 					</form>
 				</Container>
 			</main>
+
+			<footer>
+				<div className="credits">
+					<a
+						href="https://www.jussinevavuori.com/"
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						<Type component="span" color="gray-700" size="sm">
+							{"© Jussi Nevavuori 2021"}
+						</Type>
+					</a>
+					<a
+						href="https://github.com/Jussinevavuori/what-the-doodle-client"
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						<Type component="span" color="gray-700" size="sm">
+							{"GitHub"}
+						</Type>
+					</a>
+				</div>
+			</footer>
 		</div>
 	</>
 }

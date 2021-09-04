@@ -1,3 +1,4 @@
+import { Type } from "../Type/Type";
 import "./DrawingCanvas.scss";
 import { useDrawingCanvasController } from "./useDrawingCanvasController"
 
@@ -8,10 +9,13 @@ export function DrawingCanvas(props: DrawingCanvasProps) {
 
 	return <div className="DrawingCanvas">
 		<header>
-			<textarea
-				value={controller.currentRound?.topic}
-				disabled
-			/>
+			<Type
+				className="topic"
+				color="white"
+				size="lg"
+			>
+				{controller.currentRound?.topic}
+			</Type>
 		</header>
 		<canvas
 			style={{ aspectRatio: `${controller.width}/${controller.height}` }}

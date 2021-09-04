@@ -4,6 +4,7 @@
   font-size: 6rem;
   font-weight: 900;
   animation: PopupGraphicMessage__disappear 200ms 900ms linear;
+  pointer-events: none;
 
   & > .textContent {
     animation: PopupGraphicMessage__grow 550ms

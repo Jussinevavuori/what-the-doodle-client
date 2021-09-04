@@ -11,6 +11,7 @@ import { AnimatedBackground } from "../AnimatedBackground/AnimatedBackground";
 import { FinalDrawingPicker } from "../FinalDrawingPicker/FinalDrawingPicker";
 import { FinalReview } from "../FinalReview/FinalReview";
 import { TopicChooser } from "../TopicChooser/TopicChooser";
+import { DrawingCountdown } from "../DrawingCountdown/DrawingCountdown";
 
 export type RoomProps = {
 
@@ -32,7 +33,7 @@ export function Room(props: RoomProps) {
 				<PlayerBottomList />
 			</div>
 
-			<main>
+			<main className={controller.gameStatus}>
 				{
 					(() => {
 						switch (controller.gameStatus) {
@@ -44,14 +45,12 @@ export function Room(props: RoomProps) {
 
 							case "choose":
 								return <>
-									<TopicChooser />
-								</>
-
-							case "draw":
-								return <>
-									<div className="draw">
+									<div className="overlay">
+										<TopicChooser />
+									</div>
+									<div className="canvasContainer choose">
 										<div className="brushSelector">
-											<BrushSelector />
+											<BrushSelector locked />
 										</div>
 										<div className="canvas">
 											<DrawingCanvas />
@@ -59,9 +58,24 @@ export function Room(props: RoomProps) {
 									</div>
 								</>
 
+							case "draw":
+								return <>
+									<div className="canvasContainer draw">
+										<div className="brushSelector">
+											<BrushSelector />
+										</div>
+										<div className="canvas">
+											<DrawingCanvas />
+										</div>
+									</div>
+									<div className="countdown">
+										<DrawingCountdown />
+									</div>
+								</>
+
 							case "guess":
 								return <>
-									<div className="guess">
+									<div className="canvasContainer guess">
 										<div className="brushSelector">
 											<BrushSelector locked />
 										</div>

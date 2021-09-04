@@ -1,9 +1,8 @@
 import "./GuessingCanvas.scss";
-import React from "react";
 import cx from "classnames";
 import { useGuessingCanvasController } from "./useGuessingCanvasController";
-import { Done as DoneIcon } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
+import { Type } from "../Type/Type";
 
 export type GuessingCanvasProps = {
 
@@ -17,26 +16,32 @@ export function GuessingCanvas(props: GuessingCanvasProps) {
 		<header>
 			{
 				controller.currentRound?.guess
-					? <>
-						<textarea
-							value={controller.currentRound?.guess}
-							disabled
-						/>
-					</>
-					: <>
-						<textarea
+					? <Type
+						className="topic"
+						color="white"
+						size="lg"
+					>
+						{controller.currentRound?.guess}
+					</Type>
+					: <form onSubmit={controller.handleSubmit}>
+						<TextField
+							autoFocus
+							className="input"
 							placeholder="Type your guess here"
-							rows={2}
+							variant="outlined"
+							fullWidth
 							value={controller.guess}
 							onChange={e => controller.setGuess(e.target.value)}
 						/>
-						<IconButton
+						<Button
+							className="submit"
+							variant="outlined"
+							type="submit"
 							disabled={!controller.guess.trim()}
-							onClick={controller.handleSubmit}
 						>
-							<DoneIcon />
-						</IconButton>
-					</>
+							{"Guess"}
+						</Button>
+					</form>
 			}
 		</header>
 		<canvas

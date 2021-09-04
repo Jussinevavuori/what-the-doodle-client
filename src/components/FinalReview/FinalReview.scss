@@ -4,6 +4,9 @@
   & > ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    @include mobile {
+      @include flex-col($spacing-6);
+    }
     gap: $spacing-6;
     margin: 0 auto;
     padding: 0 $spacing-6;

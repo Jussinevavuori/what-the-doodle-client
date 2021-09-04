@@ -6,6 +6,8 @@ import { MiniCanvas } from "../MiniCanvas/MiniCanvas";
 import { Container } from "../Container/Container";
 import { Close } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
+import { Type } from "../Type/Type";
+import { PlayerAvatar } from "../PlayerAvatar/PlayerAvatar";
 
 export type CardReviewProps = {
 	card: GameCard;
@@ -24,57 +26,77 @@ export function CardReview(props: CardReviewProps) {
 
 		<ul>
 			{
-				controller.cardRounds.map(round => <li key={round.round.id}>
+				controller.cardRounds.map(round => (
+					<li key={round.round.id}>
 
-					<div className="drawer">
-						{
-							round.drawer && <>
+						<div className="drawer">
+							{
+								round.drawer &&
 								<Container className="content">
-									<img src={round.drawer?.avatarUrl} alt="Avatar" />
-									<p>
-										<span className="name">{round.drawer.name}</span>
-										<span className="verb">{" drew:"}</span>
-										<span className="title">{round.round.topic}</span>
-									</p>
+									<PlayerAvatar
+										player={round.drawer}
+										hideNametag
+										size={48}
+									/>
+									<div>
+										<Type align="left">
+											{`${round.drawer.name} drew:`}
+										</Type>
+										<Type align="left" variant="bold">
+											{round.round.topic}
+										</Type>
+									</div>
 								</Container>
-							</>
-						}
-					</div>
+							}
+						</div>
 
-					<div className="guesser">
-						{
-							round.picker
-								? <Container className="content">
-									<img src={round.picker.avatarUrl} alt="Avatar" />
-									<p>
-										<span className="name">{round.picker.name}</span>
-										<span className="verb">{` picked this.`}</span>
-									</p>
-								</Container>
-								: round.guesser
+						<div className="guesser">
+							{
+								round.picker
 									? <Container className="content">
-										<img src={round.guesser.avatarUrl} alt="Avatar" />
-										<p>
-											<span className="name">{round.guesser.name}</span>
-											<span className="verb">{` guessed `}</span>
-											<span className="title">{round.round.guess}</span>
-										</p>
+										<PlayerAvatar
+											player={round.picker}
+											hideNametag
+											size={48}
+										/>
+										<div>
+											<Type align="left">
+												{`${round.picker.name} picked this`}
+											</Type>
+										</div>
 									</Container>
-									: null
-						}
-					</div>
+									: round.guesser
+										? <Container className="content">
+											<PlayerAvatar
+												player={round.guesser}
+												hideNametag
+												size={48}
+											/>
+											<div>
+												<Type align="left">
+													{`${round.guesser.name} guessed:`}
+												</Type>
+												<Type variant="bold" align="left">
+													{round.round.guess}
+												</Type>
+											</div>
+										</Container>
+										: null
+							}
+						</div>
 
-					<div className="card">
-						<MiniCanvas
-							hideGuesser
-							round={round.round}
-						/>
-					</div>
+						<div className="card">
+							<MiniCanvas
+								hideGuesser
+								round={round.round}
+							/>
+						</div>
 
-				</li>)
+					</li >
+				))
 			}
-		</ul>
+		</ul >
 
-	</div>
+	</div >
 
 }
